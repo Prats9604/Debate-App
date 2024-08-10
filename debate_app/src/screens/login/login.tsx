@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
+// C:\Users\HP\AppData\Local\Android\Sdk\ndk\26.1.10909125
+
 function Login(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const [email, setEmail] = useState('');
