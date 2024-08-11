@@ -1,8 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const User = require('../Models/schema');
-
 
 const app = express();
 app.use(express.json());
@@ -35,17 +33,7 @@ app.post('/register', async (req, res) => {
         await user.save();
         console.log("User Saved:", user);
 
-        const payload = { user: { id: user.id } };
-        console.log("Payload:", payload);
-
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 360000 }, (err, token) => {
-            if (err) {
-                console.error("JWT Error:", err);
-                throw err;
-            }
-            console.log("Token:", token);
-            res.json({ token });
-        });
+        res.json({ msg: 'User registered successfully' });
     } catch (err) {
         console.error("Server Error:", err.message);
         res.status(500).send('Server error');
@@ -69,26 +57,11 @@ app.post('/login', async (req, res) => {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
 
-        const payload = {
-            user: {
-                id: user.id
-            }
-        };
-
-        jwt.sign(
-            payload,
-            process.env.JWT_SECRET,
-            { expiresIn: 360000 },
-            (err, token) => {
-                if (err) throw err;
-                res.json({ token });
-            }
-        );
+        res.json({ msg: 'Login successful' });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
     }
 });
-
 
 module.exports = app;
