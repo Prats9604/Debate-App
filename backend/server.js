@@ -1,7 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./Models/schema');
-const DebateTopic = require('./Models/debateTopic');
 require('dotenv').config();
 
 //Import routes
