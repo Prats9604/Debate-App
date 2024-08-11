@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
@@ -19,10 +20,12 @@ import {useNavigation} from '@react-navigation/native';
 
 // C:\Users\HP\AppData\Local\Android\Sdk\ndk\26.1.10909125
 
-function Login(): React.JSX.Element {
+function Signup(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmpassword, setConfirmPassword] = useState('');
+  const [phone, setPhone] = useState('');
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -38,35 +41,49 @@ function Login(): React.JSX.Element {
     // Handle login logic here
     console.log('Email:', email);
     console.log('Password:', password);
+    console.log('Confirm Password :', confirmpassword);
+    console.log('Phone :', phone);
   };
 
   const movesignup = () => {
     console.log('Moving to signup page');
-    navigation.navigate('Signup');
+    navigation.navigate('Login');
   };
 
   return (
-    <View style={[backgroundStyle, styles.container]}>
-      <Text style={styles.headertitle}>Welcome Back</Text>
-      <Text style={styles.headersubtitle}>Enter Your Credentials</Text>
+    <ScrollView style={[backgroundStyle, styles.container]}>
+      <Text style={styles.headertitle}>Sign Up</Text>
+      <Text style={styles.headersubtitle}>Create your account</Text>
 
       <View style={styles.inputcont}>
-        <Text style={styles.label}>email</Text>
+        <Text style={styles.label}>phone no.</Text>
         <TextInput
-          placeholder="Enter your email here"
-          placeholderTextColor={isDarkMode ? Colors.light : Colors.dark}
-          value={email}
-          onChangeText={setEmail}
+          placeholder="enter your phone number here"
+          placeholderTextColor="#979797"
+          value={phone}
+          onChangeText={setPhone}
           keyboardType="email-address"
           autoCapitalize="none"
           style={[styles.input, {color: textColor}]}
         />
       </View>
       <View style={styles.inputcont}>
+        <Text>email</Text>
+        <TextInput
+          placeholder="Enter your email here"
+          placeholderTextColor="#979797"
+          value={email}
+          onChangeText={setEmail}
+          secureTextEntry
+          style={[styles.input, {color: textColor}]}
+        />
+      </View>
+
+      <View style={styles.inputcont}>
         <Text>password</Text>
         <TextInput
           placeholder="Enter your password here"
-          placeholderTextColor={isDarkMode ? Colors.light : Colors.dark}
+          placeholderTextColor="#979797"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
@@ -74,18 +91,30 @@ function Login(): React.JSX.Element {
         />
       </View>
 
+      <View style={styles.inputcont}>
+        <Text>confirm password</Text>
+        <TextInput
+          placeholder="Enter your confirm password here"
+          placeholderTextColor="#979797"
+          value={confirmpassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+          style={[styles.input, {color: textColor}]}
+        />
+      </View>
+
       <View style={styles.authtsubmitcont}>
         <TouchableOpacity style={styles.submitbutton} onPress={handleLogin}>
-          <Text style={styles.buttontext}>Login Here</Text>
+          <Text style={styles.buttontext}>Sign in</Text>
         </TouchableOpacity>
         <View style={styles.signuptext}>
-          <Text style={styles.accounttexf}>Don't have an account?</Text>
+          <Text style={styles.accounttexf}>Already have an account?</Text>
           <TouchableOpacity onPress={movesignup}>
-            <Text style={{color: '#D36B6B', marginLeft: 10}}>Signup Here</Text>
+            <Text style={{color: '#D36B6B', marginLeft: 10}}>Log in</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -103,7 +132,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
     color: '#FAB682',
-    marginTop: '40%',
+    marginTop: '35%',
   },
   headersubtitle: {
     marginTop: 15,
@@ -168,4 +197,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Signup;
