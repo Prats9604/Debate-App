@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
@@ -50,15 +51,15 @@ function Signup(): React.JSX.Element {
   };
 
   return (
-    <View style={[backgroundStyle, styles.container]}>
+    <ScrollView style={[backgroundStyle, styles.container]}>
       <Text style={styles.headertitle}>Sign Up</Text>
       <Text style={styles.headersubtitle}>Create your account</Text>
 
       <View style={styles.inputcont}>
         <Text style={styles.label}>phone no.</Text>
         <TextInput
-          placeholder="Enter your phone number here"
-          placeholderTextColor={isDarkMode ? Colors.light : Colors.dark}
+          placeholder="enter your phone number here"
+          placeholderTextColor="#979797"
           value={phone}
           onChangeText={setPhone}
           keyboardType="email-address"
@@ -70,7 +71,7 @@ function Signup(): React.JSX.Element {
         <Text>email</Text>
         <TextInput
           placeholder="Enter your email here"
-          placeholderTextColor={isDarkMode ? Colors.light : Colors.dark}
+          placeholderTextColor="#979797"
           value={email}
           onChangeText={setEmail}
           secureTextEntry
@@ -82,7 +83,7 @@ function Signup(): React.JSX.Element {
         <Text>password</Text>
         <TextInput
           placeholder="Enter your password here"
-          placeholderTextColor={isDarkMode ? Colors.light : Colors.dark}
+          placeholderTextColor="#979797"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
@@ -94,7 +95,7 @@ function Signup(): React.JSX.Element {
         <Text>confirm password</Text>
         <TextInput
           placeholder="Enter your confirm password here"
-          placeholderTextColor={isDarkMode ? Colors.light : Colors.dark}
+          placeholderTextColor="#979797"
           value={confirmpassword}
           onChangeText={setConfirmPassword}
           secureTextEntry
@@ -113,7 +114,7 @@ function Signup(): React.JSX.Element {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
