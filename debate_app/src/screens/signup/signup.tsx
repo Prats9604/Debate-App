@@ -45,7 +45,6 @@ function Signup(): React.JSX.Element {
       console.log('Please fill all fields.');
       return;
     }
-
     if (password !== confirmpassword) {
       console.log('Passwords do not match.');
       return;
@@ -62,10 +61,10 @@ function Signup(): React.JSX.Element {
         'https://debate-backend-sara2829s-projects.vercel.app/api/register',
         {
           name: 'meee',
-          email: 'meee111@gmail.com',
-          phone: 7894561230,
-          password: 'abc11',
-          confirmPassword: 'abc11',
+          email: email,
+          phone: phone,
+          password: password,
+          confirmPassword: confirmpassword,
         },
       );
 
