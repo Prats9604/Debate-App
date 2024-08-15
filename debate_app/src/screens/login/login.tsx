@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 
 // C:\Users\HP\AppData\Local\Android\Sdk\ndk\26.1.10909125
 
@@ -34,15 +35,47 @@ function Login(): React.JSX.Element {
 
   const navigation = useNavigation();
 
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
-
   const movesignup = () => {
     console.log('Moving to signup page');
     navigation.navigate('Signup');
+  };
+
+  const loginHandler = async () => {
+    console.log('Attempting to log in');
+
+    if (email === '' || password === '') {
+      console.log('Please enter all the fields');
+      return;
+    }
+
+    console.log('Email:', email);
+    console.log('Password', password);
+
+    try {
+      const response = await axios.post(
+        'https://debate-backend-sara2829s-projects.vercel.app/api/login',
+        {
+          email: email,
+          password: password,
+        },
+      );
+      console.log('Login successful:', response.data);
+      navigation.navigate('myTab');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          console.error('Error response data:', error.response.data);
+          console.error('Error response status:', error.response.status);
+          console.error('Error response headers:', error.response.headers);
+        } else if (error.request) {
+          console.error('Error request data:', error.request);
+        } else {
+          console.error('Error message:', error.message);
+        }
+      } else {
+        console.error('Unexpected error:', error);
+      }
+    }
   };
 
   return (
@@ -75,7 +108,7 @@ function Login(): React.JSX.Element {
       </View>
 
       <View style={styles.authtsubmitcont}>
-        <TouchableOpacity style={styles.submitbutton} onPress={handleLogin}>
+        <TouchableOpacity style={styles.submitbutton} onPress={loginHandler}>
           <Text style={styles.buttontext}>Login Here</Text>
         </TouchableOpacity>
         <View style={styles.signuptext}>

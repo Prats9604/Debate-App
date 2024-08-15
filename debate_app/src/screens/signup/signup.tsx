@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
@@ -17,6 +18,7 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 
 // C:\Users\HP\AppData\Local\Android\Sdk\ndk\26.1.10909125
 
@@ -37,12 +39,59 @@ function Signup(): React.JSX.Element {
 
   const navigation = useNavigation();
 
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Confirm Password :', confirmpassword);
-    console.log('Phone :', phone);
+  const handleRegister = async () => {
+    // Input validation
+    if (!email || !password || !confirmpassword || !phone) {
+      console.log('Please fill all fields.');
+      return;
+    }
+
+    if (password !== confirmpassword) {
+      console.log('Passwords do not match.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      console.log('Invalid email format.');
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        'https://debate-backend-sara2829s-projects.vercel.app/api/register',
+        {
+          name: 'meee',
+          email: 'meee111@gmail.com',
+          phone: 7894561230,
+          password: 'abc11',
+          confirmPassword: 'abc11',
+        },
+      );
+
+      console.log('Registration successful:', response.data);
+      // Navigate to the login page or home page after successful registration
+      navigation.navigate('Login');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        // Error response from server
+        if (error.response) {
+          console.error('Error response data:', error.response.data);
+          console.error('Error response status:', error.response.status);
+          console.error('Error response headers:', error.response.headers);
+        }
+        // No response from server
+        else if (error.request) {
+          console.error('Error request data:', error.request);
+        }
+        // Error in setting up the request
+        else {
+          console.error('Error message:', error.message);
+        }
+      } else {
+        console.error('Unexpected error:', error);
+      }
+    }
   };
 
   const movesignup = () => {
@@ -74,7 +123,6 @@ function Signup(): React.JSX.Element {
           placeholderTextColor="#979797"
           value={email}
           onChangeText={setEmail}
-          secureTextEntry
           style={[styles.input, {color: textColor}]}
         />
       </View>
@@ -86,7 +134,6 @@ function Signup(): React.JSX.Element {
           placeholderTextColor="#979797"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry
           style={[styles.input, {color: textColor}]}
         />
       </View>
@@ -98,13 +145,12 @@ function Signup(): React.JSX.Element {
           placeholderTextColor="#979797"
           value={confirmpassword}
           onChangeText={setConfirmPassword}
-          secureTextEntry
           style={[styles.input, {color: textColor}]}
         />
       </View>
 
       <View style={styles.authtsubmitcont}>
-        <TouchableOpacity style={styles.submitbutton} onPress={handleLogin}>
+        <TouchableOpacity style={styles.submitbutton} onPress={handleRegister}>
           <Text style={styles.buttontext}>Sign in</Text>
         </TouchableOpacity>
         <View style={styles.signuptext}>
