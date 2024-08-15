@@ -57,11 +57,13 @@ app.post('/login', async (req, res) => {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
 
-        res.json({ msg: 'Login successful' });
+        // If login is successful, send back the user ID along with a success message
+        res.json({ msg: 'Login successful', userId: user._id });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
     }
 });
+
 
 module.exports = app;
