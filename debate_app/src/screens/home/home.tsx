@@ -20,6 +20,7 @@ export default function rooms() {
           />
         </View>
       </View>
+      <View style={styles.carsouel}></View>
       <View style={styles.rooms}></View>
     </View>
   );
@@ -58,6 +59,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 
+  carsouel: {
+    width: '100%',
+    height: 200,
+  },
+
   rooms: {
     flexDirection: 'row',
     paddingVertical: 20,
@@ -66,5 +72,11 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -1,
+    },
+    shadowOpacity: 0.22,
   },
 });
