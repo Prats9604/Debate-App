@@ -325,13 +325,15 @@ export default function Rooms() {
       </Modal>
       <Modal transparent visible={modal2Visible} animationType="none">
         <View style={styles.modalOverlay}>
-          <View
-            style={[
-              styles.modal,
-              // {top: -140},
-            ]}>
-            <View style={styles.debateBox}>
-            </View>
+          <View style={styles.modal}>
+            <TouchableOpacity
+              style={styles.crossButton}
+              onPress={() => setModal2Visible(false)}
+            >
+              <Text style={styles.crossText}>X</Text>
+            </TouchableOpacity>
+
+            <View style={styles.debateBox}></View>
             <TouchableOpacity
               style={styles.customButton}
               onPress={() => console.log('Request to Debate')}>
@@ -584,17 +586,28 @@ const styles = StyleSheet.create({
   },
   debateBox: {
     width: 180,
-    height: 100,
+    height: 80,
     borderColor: '#D36B6B',
     borderWidth: 1,
     borderRadius: 10,
     fontSize: 14,
     fontWeight: '500',
     color: '#747474',
+    marginTop:10,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  crossButton: {
+    position: 'absolute',
+    top: 10,
+    right: 20,
+  },
+  crossText: {
+    fontSize: 24,
+    color: 'gray',
+    fontWeight: 'semibold',
   },
 });
