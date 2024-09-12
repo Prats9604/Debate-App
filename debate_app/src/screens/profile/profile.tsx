@@ -1,100 +1,129 @@
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import {
   View,
   Text,
   Image,
   StyleSheet,
-  ScrollView,
-  Modal,
   TouchableOpacity,
+  Dimensions,
+  ScrollView,
+  Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
-export default function profile() {
-  const [modalVisible, setModalVisible] = useState(false);
+const screenWidth = Dimensions.get('window').width;
+const topicsConfig = [
+  {
+    id: 1,
+    topic: 'Bottled water should be banned.',
+    status: 'done',
+  },
+  {
+    id: 1,
+    topic: 'Bottled water should be banned.',
+    status: 'Not done',
+  },
+  {
+    id: 1,
+    topic: 'Bottled water should be banned.',
+    status: 'Not done',
+  },
+  {
+    id: 1,
+    topic: 'Bottled water should be banned.',
+    status: 'done',
+  },
+  {
+    id: 1,
+    topic: 'Bottled water should be banned.',
+    status: 'done',
+  },
+];
+
+export default function Profile() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          source={require('../../assets/images/back.png')}
-          style={{width: 12, height: 32}}
-        />
-        <View>
-          <Text style={styles.headerText1}>
-            Every citizen should be mandated to perform national public service.
-          </Text>
-        </View>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <View style={styles.editImage}>
           <Image
-            source={require('../../assets/images/exit.png')}
-            style={{width: 50, height: 50}}
+            source={require('../../assets/images/edit.png')}
+            style={{width: 25, height: 25}}
             alt="profile"
           />
-        </TouchableOpacity>
-      </View>
-      <ScrollView style={styles.rooms}>
-        <View style={styles.message1}>
-          <Text style={styles.name1}>Aarav S</Text>
-          <Text style={styles.text1}>
-            mandated to perform national public service andated to perform
-            national public.
-          </Text>
         </View>
-        <View style={styles.message2}>
-          <Text style={styles.name2}>Aarav S</Text>
-          <Text style={styles.text2}>
-            mandated to perform national public service.
-          </Text>
+        <View style={styles.up}>
+          <View style={styles.profileImage}>
+            <Image
+              source={require('../../assets/images/profile.png')}
+              style={{width: 72, height: 72}}
+              alt="profile"
+            />
+          </View>
+          <View style={styles.data}>
+            <View style={styles.element}>
+              <Text style={styles.headerText1}>10</Text>
+              <Text style={styles.headerText2}>Participated</Text>
+            </View>
+            <View style={styles.element}>
+              <Text style={styles.headerText1}>20</Text>
+              <Text style={styles.headerText2}>Won</Text>
+            </View>
+            <View style={styles.element}>
+              <Text style={styles.headerText1}>12</Text>
+              <Text style={styles.headerText2}>Criteria</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.message1}>
-          <Text style={styles.name1}>Aarav S</Text>
-          <Text style={styles.text1}>
-            mandated to perform national public service andated to perform
-            national public.
-          </Text>
+        <View style={styles.info}>
+          <Text style={styles.headerText1}>Pratiksha Gunjal</Text>
+          <Text style={styles.headerText2}>Prats9604</Text>
+          <Text style={styles.headerText3}>-BTech, 2025</Text>
         </View>
-        <View style={styles.message2}>
-          <Text style={styles.name2}>Aarav S</Text>
-          <Text style={styles.text2}>
-            mandated to perform national public service. Conclusion: Every
-            citizen should be mandated to perform national public service.
-          </Text>
+        <View style={styles.buts}>
+          <Text style={styles.but}>Share Profile</Text>
+          <Text style={styles.but}>Share Profile</Text>
         </View>
-      </ScrollView>
-      {/* <Text style={styles.input}>Message</Text> */}
-      <View style={styles.input2}>
-        <Text style={styles.inputText}>Message</Text>
-        <Image
-          source={require('../../assets/images/send.png')}
-          style={{width: 34, height: 28}}
-          alt="send"
-        />
       </View>
 
-      <Modal
-        transparent={true}
-        animationType="fade"
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}>
-        <TouchableOpacity
-          style={styles.modalOverlay}
-          onPress={() => setModalVisible(false)}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText1}>Exit the Debate</Text>
-            <Text style={styles.modalText2}>
-              By clicking here, You'll end this debate and Team Red will win.
-            </Text>
-            <TouchableOpacity
-              style={styles.customButton}
-              onPress={() => console.log('Request to Debate')}>
-              <Text style={styles.buttonText}>Agree with team Red</Text>
-            </TouchableOpacity>
+      <View style={styles.rooms}>
+        <Text style={styles.title}>Debates you added</Text>
+        <View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.topicList}>
+            {topicsConfig.map(topic => (
+              <View key={topic.id} style={styles.topicItem}>
+                <Text style={styles.topicText}>{topic.topic}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+        <View style={styles.features}>
+          <View style={styles.feature}>
+            <View style={styles.icon}>
+              <Image
+                source={require('../../assets/images/saveIcon.png')}
+                style={{width: 20, height: 20}}
+                alt="profile"
+              />
+            </View>
+            <Text style={styles.name}>Debates you saved</Text>
           </View>
-        </TouchableOpacity>
-      </Modal>
+          <View style={styles.feature}>
+            <View style={styles.icon}>
+              <Image
+                source={require('../../assets/images/likeIcon.png')}
+                style={{width: 25.5, height: 20}}
+                alt="profile"
+              />
+            </View>
+            <Text style={styles.name}>Debates you liked</Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 }
@@ -102,160 +131,134 @@ export default function profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-
-  header: {
     backgroundColor: '#FAB682',
-    borderRadius: 14,
+    gap: 10,
+    width: '100%',
+  },
+  header: {
+    flexDirection: 'column',
+    gap: 10,
+    marginBottom: 20,
+  },
+  up: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 20,
-    paddingHorizontal: 20,
-    gap: 18,
-    margin: 8,
+    paddingHorizontal: 30,
   },
-
   headerText1: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 22,
+    fontWeight: '700',
+    lineHeight: 30,
+    color: '#000',
+  },
+  headerText2: {
+    fontSize: 17,
+    fontWeight: '500',
     lineHeight: 21,
     color: '#D36B6B',
-    paddingHorizontal: 20,
   },
-
-  rooms: {
-    backgroundColor: '#E3E3E3',
-    flexDirection: 'column',
-    marginHorizontal: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    flex: 1,
-    display: 'flex',
-    // borderTopLeftRadius: 16,
-    // borderTopRightRadius: 16,
-    borderRadius: 16,
+  headerText3: {
+    fontSize: 16,
+    fontWeight: '500',
+    lineHeight: 21,
+    color: '#000',
   },
-  message1: {
-    flexDirection: 'column',
-    gap: 1,
-    padding: 10,
-    backgroundColor: '#fff',
-    maxWidth: '80%',
-    borderRadius: 6,
-    borderLeftWidth: 2,
-    borderLeftColor: '#6BA0C7',
+  element: {
+    alignItems: 'center',
+  },
+  editImage: {
+    width: 20,
+    height: 20,
     alignSelf: 'flex-end',
-    marginVertical: 6,
+    marginHorizontal: 20,
+    marginTop: 16,
   },
-  name1: {
-    color: '#6BA0C7',
-    fontSize: 14,
-    fontWeight: '600',
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    marginTop: -20,
   },
-  text1: {
-    color: '#747474',
-    fontSize: 15,
-    fontWeight: '500',
-    lineHeight: 20,
-  },
-  message2: {
-    flexDirection: 'column',
-    gap: 1,
-    padding: 10,
-    backgroundColor: '#CDCDCD',
-    // backgroundColor:'#EFEFEF',
-    maxWidth: '80%',
-    borderRadius: 6,
-    borderLeftWidth: 2,
-    borderLeftColor: '#EA7575',
-    marginVertical: 6,
-  },
-  name2: {
-    color: '#EA7575',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  text2: {
-    color: '#747474',
-    fontSize: 15,
-    fontWeight: '500',
-    lineHeight: 20,
-  },
-  input: {
-    position: 'absolute',
-    padding: 16,
-    borderRadius: 40,
-    color: '#747474',
-    backgroundColor: '#E3E3E3',
-    bottom: 0,
-    width: '98%',
-    alignSelf: 'center',
-    borderWidth: 3,
-    borderColor: '#fff',
-  },
-  input2: {
+  data: {
     flexDirection: 'row',
-    position: 'absolute',
+    gap: 40,
+  },
+  info: {
+    paddingLeft: 26,
+    gap: 4,
+  },
+  buts: {
+    flexDirection: 'row',
+    gap: 10,
+    marginHorizontal: 26,
+  },
+  but: {
     paddingVertical: 10,
-    paddingHorizontal:20,
-    backgroundColor: '#E3E3E3',
-    bottom: 4,
-    width: '92%',
-    alignSelf: 'center',
-    borderWidth: 3,
-    borderColor: '#fff',
-    borderRadius: 20,
-    justifyContent: 'space-between',
-    alignItems:'center',
-    elevation: 5,
-  },
-  inputText: {
-    color: '#747474',
-    fontSize:14,
-    fontWeight:'500',
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContainer: {
-    width: 260,
-    height: 200,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 14,
-  },
-  modalText1: {
-    fontSize: 20,
-    color: '#D36B6B',
-    fontWeight: '600',
-  },
-  modalText2: {
-    fontSize: 16,
-    color: '#747474',
-    // color:'#000',
-    fontWeight: '500',
+    width: '50%',
+    backgroundColor: '#FDEECE',
     textAlign: 'center',
-  },
-  customButton: {
-    width: '90%',
-    marginTop: 4,
-    paddingVertical: 12,
-    backgroundColor: '#11BB11',
     borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    color: '#D36B6B',
+    fontWeight:'700',
   },
-  buttonText: {
-    color: '#fff',
+  rooms: {
+    flexDirection: 'column',
+    paddingVertical: 20,
+    gap: 16,
+    // paddingHorizontal: 24,
+    paddingLeft: 16,
+    backgroundColor: '#fff',
+    flex: 1,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#000',
+    marginTop: 10,
+    marginLeft: 4,
+  },
+  topicList: {
+    flexDirection: 'row',
+    gap: 4,
+  },
+  topicItem: {
+    backgroundColor: '#FDEECE',
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  topicText: {
+    color: '#747474',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '500',
+  },
+  features: {
+    flexDirection: 'column',
+    gap: 16,
+  },
+  feature: {
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center',
+  },
+  icon: {
+    // padding: 12,
+    borderRadius:4,
+    backgroundColor: '#FDEECE',
+    width:36,
+    height:36,
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#747474',
   },
 });

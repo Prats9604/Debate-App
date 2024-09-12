@@ -173,89 +173,9 @@ const debatesConfig = [
     countLeft: '+1',
     countRight: '+3',
   },
-  {
-    id: 9,
-    status: 'Ongoing',
-    topic:
-      'Every citizen should be mandated to perform national public service.',
-    conclusion: '',
-    notification: '',
-    days: 5,
-    result: '',
-    companionsLeft: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/red.png'),
-    ],
-    companionsRight: [
-      require('../../assets/images/blue.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
-  {
-    id: 10,
-    status: 'Completed',
-    topic: 'All people should have Universal Basic Income.',
-    conclusion:
-      'Frederick Douglass was, as we have seen, a pioneer in American education, proving that education was a major force for social change with regard to slavery.',
-    notification: '',
-    days: 10,
-    result: 'Won',
-    companionsLeft: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/red.png'),
-    ],
-    companionsRight: [
-      require('../../assets/images/blue.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
-  {
-    id: 11,
-    status: 'Ongoing',
-    topic:
-      'Every citizen should be mandated to perform national public service.',
-    conclusion: '',
-    notification: '',
-    days: 5,
-    result: '',
-    companionsLeft: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/red.png'),
-    ],
-    companionsRight: [
-      require('../../assets/images/blue.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
-  {
-    id: 12,
-    status: 'Completed',
-    topic: 'All people should have Universal Basic Income.',
-    conclusion:
-      'Frederick Douglass was, as we have seen, a pioneer in American education, proving that education was a major force for social change with regard to slavery.',
-    notification: '',
-    days: 10,
-    result: 'Won',
-    companionsLeft: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/red.png'),
-    ],
-    companionsRight: [
-      require('../../assets/images/blue.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
 ];
 
-export default function Rooms() {
+export default function Help() {
   const [filter, setFilter] = useState('Ongoing'); // State to manage filter
   const [expandedDebates, setExpandedDebates] = useState<Set<number>>(
     new Set(),
@@ -290,105 +210,7 @@ export default function Rooms() {
           />
         </View>
       </View>
-      <View style={styles.rooms}>
-        <View style={styles.switches}>
-          <TouchableOpacity onPress={() => setFilter('Ongoing')}>
-            <Text
-              style={[
-                styles.button,
-                filter === 'Ongoing' && styles.activeButton,
-              ]}>
-              Ongoing
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setFilter('Completed')}>
-            <Text
-              style={[
-                styles.button,
-                filter === 'Completed' && styles.activeButton,
-              ]}>
-              Completed
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <ScrollView
-          style={{
-            width: '100%',
-            height: '100%',
-          }}>
-          <View style={styles.debatewrap}>
-            {debatesConfig
-              .filter(debate => debate.status === filter)
-              .map(debate => (
-                <Pressable
-                  onPress={() => {
-                    navigation.navigate('OwnChats');
-                  }}>
-                  <View key={debate.id} style={styles.debates}>
-                    <View style={styles.top}>
-                      <Text style={styles.debateTopic}>{debate.topic}</Text>
-                      <View
-                        style={[
-                          styles.notification,
-                          {backgroundColor: debate.notification},
-                        ]}></View>
-                    </View>
-
-                    {debate.status === 'Completed' && (
-                      <TouchableOpacity
-                        onPress={() => toggleTextExpansion(debate.id)}>
-                        <Text
-                          style={styles.conclusion}
-                          numberOfLines={
-                            expandedDebates.has(debate.id) ? undefined : 1
-                          }
-                          ellipsizeMode="tail">
-                          {debate.conclusion}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-
-                    <View style={styles.bottom}>
-                      <View style={styles.left}>
-                        {debate.companionsLeft.map((img, index) => (
-                          <Image
-                            key={index}
-                            source={img}
-                            style={{width: 26, height: 26}}
-                            alt="profile"
-                          />
-                        ))}
-                        <Text style={styles.Count}>{debate.countLeft}</Text>
-                      </View>
-                      <View style={styles.duration}>
-                        <Text style={styles.number}>{debate.days}</Text>
-                        <Text style={styles.days}>Days</Text>
-
-                        {debate.status === 'Completed' && (
-                          <Text style={styles.slash}>/</Text>
-                        )}
-                        {debate.status === 'Completed' && (
-                          <Text style={styles.result}>{debate.result}</Text>
-                        )}
-                      </View>
-                      <View style={styles.right}>
-                        {debate.companionsRight.map((img, index) => (
-                          <Image
-                            key={index}
-                            source={img}
-                            style={{width: 26, height: 26}}
-                            alt="profile"
-                          />
-                        ))}
-                        <Text style={styles.Count}>{debate.countRight}</Text>
-                      </View>
-                    </View>
-                  </View>
-                </Pressable>
-              ))}
-          </View>
-        </ScrollView>
-      </View>
+      <View style={styles.rooms}></View>
     </View>
   );
 }
@@ -423,13 +245,10 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   rooms: {
-    display: 'flex',
     flexDirection: 'column',
-    paddingTop: 20,
+    paddingVertical: 20,
     gap: 20,
-    width: '100%',
-    // paddingHorizontal: 24
-
+    paddingHorizontal: 24,
     backgroundColor: '#fff',
     flex: 1,
     borderTopLeftRadius: 40,
@@ -464,17 +283,13 @@ const styles = StyleSheet.create({
     color: '#D36B6B',
   },
   debatewrap: {
-    // flexDirection: 'column',
+    flexDirection: 'column',
     gap: 10,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 20,
   },
   debates: {
     width: screenWidth * 0.9,
     flexDirection: 'column',
-    // gap: 10,
+    gap: 10,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
@@ -483,7 +298,6 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: '#fff',
     borderRadius: 16,
-    // marginTop: 30,
   },
   top: {
     flexDirection: 'row',
@@ -495,7 +309,6 @@ const styles = StyleSheet.create({
     color: '#747474',
     fontSize: 16,
     fontWeight: '600',
-    width: '92%',
   },
   notification: {
     width: 14,

@@ -47,143 +47,229 @@ export default function Rooms() {
           alt="profile"
         />
       </View>
+
       <View style={styles.rooms}>
-        <View style={styles.notifications}>
-          <View style={styles.top}>
-            <View style={styles.toptop}>
-              <Image
-                source={require('../../assets/images/profile.png')}
-                style={{width: 26, height: 26}}
-                alt="profile"
-              />
-              <View style={styles.about}>
-                <Text style={styles.about1}>Gaurav997</Text>
-                <Text style={styles.about2}>Requested to join you in </Text>
-              </View>
-            </View>
+        <ScrollView
+          style={{
+            display: 'flex',
+            width: '100%',
+          }}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 12,
+              marginVertical:4,
+            }}>
+            <View style={styles.notifications}>
+              <View style={styles.top}>
+                <View style={styles.toptop}>
+                  <Image
+                    source={require('../../assets/images/profile.png')}
+                    style={{width: 26, height: 26}}
+                    alt="profile"
+                  />
+                  <View style={styles.about}>
+                    <Text style={styles.about1}>Gaurav997</Text>
+                    <Text style={styles.about2}>Requested to join you in </Text>
+                  </View>
+                </View>
 
-            <Text style={styles.notText}>
-              Every citizen should be mandated to perform national public
-              service.
-            </Text>
-          </View>
-          <View style={styles.bottom}>
-            <View style={styles.left}>
-              <Text style={styles.id}>ID - 12345</Text>
-            </View>
-            <View style={styles.right}>
-              <TouchableOpacity
-                style={styles.customButton}
-                onPress={() => console.log('Request to Debate')}>
-                <Text style={styles.buttonText}>Accept the request</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <View style={styles.notifications}>
-          <View style={styles.top}>
-            <View style={styles.toptop}>
-              <Image
-                source={require('../../assets/images/profile.png')}
-                style={{width: 26, height: 26}}
-                alt="profile"
-              />
-              <View style={styles.about}>
-                <Text style={styles.about1}>Saransh97</Text>
-                <Text style={styles.about2}>
-                  Accepted your request to join in
+                <Text style={styles.notText}>
+                  Every citizen should be mandated to perform national public
+                  service.
                 </Text>
               </View>
+              <View style={styles.bottom}>
+                <View style={styles.left}>
+                  <Text style={styles.id}>ID - 12345</Text>
+                </View>
+                <View style={styles.right}>
+                  <TouchableOpacity
+                    style={styles.customButton}
+                    onPress={() => console.log('Request to Debate')}>
+                    <Text style={styles.buttonText}>Accept the request</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
+            <View style={styles.notifications}>
+              <View style={styles.top}>
+                <View style={styles.toptop}>
+                  <Image
+                    source={require('../../assets/images/profile.png')}
+                    style={{width: 26, height: 26}}
+                    alt="profile"
+                  />
+                  <View style={styles.about}>
+                    <Text style={styles.about1}>Saransh97</Text>
+                    <Text style={styles.about2}>
+                      Accepted your request to join in
+                    </Text>
+                  </View>
+                </View>
 
-            <Text style={styles.notText}>
-              Every citizen should be mandated to perform national public
-              service.
-            </Text>
-          </View>
-          <View style={styles.bottom}>
-            <View style={styles.left}>
-              <Text style={styles.id}>ID - 12345</Text>
-            </View>
-            <View style={styles.right}>
-              <TouchableOpacity
-                style={styles.customButton}
-                onPress={() => console.log('Request to Debate')}>
-                <Text style={styles.buttonText}>Go to the Room</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <View style={styles.notifications}>
-          <View style={styles.top}>
-            <View style={styles.toptop}>
-              <Image
-                source={require('../../assets/images/profile.png')}
-                style={{width: 26, height: 26}}
-                alt="profile"
-              />
-              <View style={styles.about}>
-                <Text style={styles.about1}>
-                  24 hrs are about to complete, revert back soon otherwise
-                  you&apos;ll lose
+                <Text style={styles.notText}>
+                  Every citizen should be mandated to perform national public
+                  service.
                 </Text>
-                {/* <Text style={styles.about2}>
+              </View>
+              <View style={styles.bottom}>
+                <View style={styles.left}>
+                  <Text style={styles.id}>ID - 12345</Text>
+                </View>
+                <View style={styles.right}>
+                  <TouchableOpacity
+                    style={styles.customButton}
+                    onPress={() => console.log('Request to Debate')}>
+                    <Text style={styles.buttonText}>Go to the Room</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+            <View style={styles.notifications}>
+              <View style={styles.top}>
+                <View style={styles.toptop}>
+                  <Image
+                    source={require('../../assets/images/profile.png')}
+                    style={{width: 26, height: 26}}
+                    alt="profile"
+                  />
+                  <View style={styles.about}>
+                    <Text style={styles.about1}>
+                      24 hrs are about to complete, revert back soon otherwise
+                      you&apos;ll lose
+                    </Text>
+                    {/* <Text style={styles.about2}>
                   Accepted your request to join in
                 </Text> */}
+                  </View>
+                </View>
+
+                <Text style={styles.notText}>
+                  Every citizen should be mandated to perform national public
+                  service.
+                </Text>
+              </View>
+              <View style={styles.bottom}>
+                <View style={styles.left}>
+                  <Text style={styles.id}>ID - 12345</Text>
+                </View>
+                <View style={styles.right}>
+                  <TouchableOpacity
+                    style={styles.customButton}
+                    onPress={() => console.log('Request to Debate')}>
+                    <Text style={styles.buttonText}>Go to the Room</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
+            <View style={styles.notifications}>
+              <View style={styles.top}>
+                <View style={styles.toptop}>
+                  <Image
+                    source={require('../../assets/images/profile.png')}
+                    style={{width: 26, height: 26}}
+                    alt="profile"
+                  />
+                  <View style={styles.about}>
+                    <Text style={styles.about1}>Saransh97</Text>
+                    <Text style={styles.about2}>lost the debate</Text>
+                  </View>
+                  <Text style={styles.back}>Backed Off</Text>
+                </View>
 
-            <Text style={styles.notText}>
-              Every citizen should be mandated to perform national public
-              service.
-            </Text>
-          </View>
-          <View style={styles.bottom}>
-            <View style={styles.left}>
-              <Text style={styles.id}>ID - 12345</Text>
-            </View>
-            <View style={styles.right}>
-              <TouchableOpacity
-                style={styles.customButton}
-                onPress={() => console.log('Request to Debate')}>
-                <Text style={styles.buttonText}>Go to the Room</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <View style={styles.notifications}>
-          <View style={styles.top}>
-            <View style={styles.toptop}>
-              <Image
-                source={require('../../assets/images/profile.png')}
-                style={{width: 26, height: 26}}
-                alt="profile"
-              />
-              <View style={styles.about}>
-                <Text style={styles.about1}>Saransh97</Text>
-                <Text style={styles.about2}>lost the debate</Text>
+                <Text style={styles.notText}>
+                  Every citizen should be mandated to perform national public
+                  service.
+                </Text>
               </View>
-              <Text style={styles.back}>Backed Off</Text>
+              <View style={styles.bottom}>
+                <View style={styles.left}>
+                  <Text style={styles.id}>ID - 12345</Text>
+                </View>
+                <View style={styles.right}>
+                  <TouchableOpacity
+                    style={styles.customButton}
+                    onPress={() => console.log('Request to Debate')}>
+                    <Text style={styles.buttonText}>Go to the Room</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
+            <View style={styles.notifications}>
+              <View style={styles.top}>
+                <View style={styles.toptop}>
+                  <Image
+                    source={require('../../assets/images/profile.png')}
+                    style={{width: 26, height: 26}}
+                    alt="profile"
+                  />
+                  <View style={styles.about}>
+                    <Text style={styles.about1}>
+                      24 hrs are about to complete, revert back soon otherwise
+                      you&apos;ll lose
+                    </Text>
+                    {/* <Text style={styles.about2}>
+                  Accepted your request to join in
+                </Text> */}
+                  </View>
+                </View>
 
-            <Text style={styles.notText}>
-              Every citizen should be mandated to perform national public
-              service.
-            </Text>
-          </View>
-          <View style={styles.bottom}>
-            <View style={styles.left}>
-              <Text style={styles.id}>ID - 12345</Text>
+                <Text style={styles.notText}>
+                  Every citizen should be mandated to perform national public
+                  service.
+                </Text>
+              </View>
+              <View style={styles.bottom}>
+                <View style={styles.left}>
+                  <Text style={styles.id}>ID - 12345</Text>
+                </View>
+                <View style={styles.right}>
+                  <TouchableOpacity
+                    style={styles.customButton}
+                    onPress={() => console.log('Request to Debate')}>
+                    <Text style={styles.buttonText}>Go to the Room</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-            <View style={styles.right}>
-              <TouchableOpacity
-                style={styles.customButton}
-                onPress={() => console.log('Request to Debate')}>
-                <Text style={styles.buttonText}>Go to the Room</Text>
-              </TouchableOpacity>
+            <View style={styles.notifications}>
+              <View style={styles.top}>
+                <View style={styles.toptop}>
+                  <Image
+                    source={require('../../assets/images/profile.png')}
+                    style={{width: 26, height: 26}}
+                    alt="profile"
+                  />
+                  <View style={styles.about}>
+                    <Text style={styles.about1}>Saransh97</Text>
+                    <Text style={styles.about2}>lost the debate</Text>
+                  </View>
+                  <Text style={styles.back}>Backed Off</Text>
+                </View>
+
+                <Text style={styles.notText}>
+                  Every citizen should be mandated to perform national public
+                  service.
+                </Text>
+              </View>
+              <View style={styles.bottom}>
+                <View style={styles.left}>
+                  <Text style={styles.id}>ID - 12345</Text>
+                </View>
+                <View style={styles.right}>
+                  <TouchableOpacity
+                    style={styles.customButton}
+                    onPress={() => console.log('Request to Debate')}>
+                    <Text style={styles.buttonText}>Go to the Room</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
       </View>
     </View>
   );
@@ -214,16 +300,19 @@ const styles = StyleSheet.create({
     color: '#D36B6B',
   },
   rooms: {
+    width: '100%',
     flexDirection: 'column',
     paddingVertical: 20,
     gap: 10,
-    paddingHorizontal: 24,
+    // paddingHorizontal: 24,
     backgroundColor: '#fff',
     flex: 1,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     color: '#000',
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   notifications: {
     width: screenWidth * 0.9,
@@ -304,7 +393,7 @@ const styles = StyleSheet.create({
   },
   back: {
     color: '#D36B6B',
-    fontWeight:"600",
-    justifyContent:"flex-end",
+    fontWeight: '600',
+    justifyContent: 'flex-end',
   },
 });
