@@ -1,3 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 import {
   View,
   Text,
@@ -6,8 +13,13 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
+  Pressable,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import Navigation from '../../navigators/navigation';
+import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const screenWidth = Dimensions.get('window').width;
 const debatesConfig = [
@@ -253,6 +265,18 @@ const debatesConfig = [
   // },
 ];
 
+let companionsLeft = [
+  require('../../assets/images/profile.png'),
+  require('../../assets/images/profile.png'),
+];
+let companionsRight = [
+  require('../../assets/images/profile.png'),
+  require('../../assets/images/profile.png'),
+];
+let countLeft = '+1';
+let countRight = '+3';
+let days = 8;
+
 export default function Rooms() {
   const [filter, setFilter] = useState('Ongoing'); // State to manage filter
   const [expandedDebates, setExpandedDebates] = useState<Set<number>>(
@@ -270,6 +294,37 @@ export default function Rooms() {
       return newExpandedDebates;
     });
   };
+
+  const [debates, setDebates] = useState([]);
+
+  const getDebates = async () => {
+    try {
+      let userId;
+      try {
+        const value = await AsyncStorage.getItem('userId');
+        if (value !== null) {
+          console.log('Retrieved data:', value);
+        }
+
+        userId = value;
+      } catch (error) {
+        console.error('Error retrieving data', error);
+      }
+      const response = await axios.get(
+        'https://69da-14-139-109-130.ngrok-free.app/api/debate/user/' + userId,
+      );
+      console.log('response data =======', response.data);
+      setDebates(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getDebates();
+  }, []);
+
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -308,36 +363,38 @@ export default function Rooms() {
           </TouchableOpacity>
         </View>
         <View style={styles.debatewrap}>
-          {debatesConfig
-            .filter(debate => debate.status === filter)
-            .map(debate => (
-              <View key={debate.id} style={styles.debates}>
+          {debates.map(debate => (
+            <Pressable
+              onPress={() => {
+                navigation.navigate('Profile');
+              }}>
+              <View key={debate?._id} style={styles.debates}>
                 <View style={styles.top}>
-                  <Text style={styles.debateTopic}>{debate.topic}</Text>
+                  <Text style={styles.debateTopic}>{debate?.debateName}</Text>
                   <View
                     style={[
                       styles.notification,
-                      {backgroundColor: debate.notification},
+                      // {backgroundColor: debate?.notification},
                     ]}></View>
                 </View>
 
-                {debate.status === 'Completed' && (
+                {debate?.status === 'Completed' && (
                   <TouchableOpacity
-                    onPress={() => toggleTextExpansion(debate.id)}>
+                    onPress={() => toggleTextExpansion(debate?._id)}>
                     <Text
                       style={styles.conclusion}
                       numberOfLines={
-                        expandedDebates.has(debate.id) ? undefined : 1
+                        expandedDebates.has(debate?._id) ? undefined : 1
                       }
                       ellipsizeMode="tail">
-                      {debate.conclusion}
+                      {debate?.conclusion}
                     </Text>
                   </TouchableOpacity>
                 )}
 
                 <View style={styles.bottom}>
                   <View style={styles.left}>
-                    {debate.companionsLeft.map((img, index) => (
+                    {companionsLeft.map((img: any, index: any) => (
                       <Image
                         key={index}
                         source={img}
@@ -345,10 +402,10 @@ export default function Rooms() {
                         alt="profile"
                       />
                     ))}
-                    <Text style={styles.Count}>{debate.countLeft}</Text>
+                    <Text style={styles.Count}>{countLeft}</Text>
                   </View>
                   <View style={styles.duration}>
-                    <Text style={styles.number}>{debate.days}</Text>
+                    <Text style={styles.number}>{days}</Text>
                     <Text style={styles.days}>Days</Text>
 
                     {debate.status === 'Completed' && (
@@ -359,7 +416,7 @@ export default function Rooms() {
                     )}
                   </View>
                   <View style={styles.right}>
-                    {debate.companionsRight.map((img, index) => (
+                    {companionsRight?.map((img: any, index: any) => (
                       <Image
                         key={index}
                         source={img}
@@ -367,11 +424,12 @@ export default function Rooms() {
                         alt="profile"
                       />
                     ))}
-                    <Text style={styles.Count}>{debate.countRight}</Text>
+                    <Text style={styles.Count}>{countRight}</Text>
                   </View>
                 </View>
               </View>
-            ))}
+            </Pressable>
+          ))}
         </View>
       </View>
     </View>

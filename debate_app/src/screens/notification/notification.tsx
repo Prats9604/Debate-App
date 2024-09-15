@@ -1,3 +1,13 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable eslint-comments/no-unused-disable */
+/* eslint-disable prettier/prettier */
+/* eslint-disable eslint-comments/no-unused-disable */
+/* eslint-disable prettier/prettier */
+// eslint-disable-next-line eslint-comments/no-unused-disable
+/* eslint-disable eslint-comments/no-unused-disable */
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 import {
   View,
   Text,
@@ -10,6 +20,7 @@ import {
 import React, {useState} from 'react';
 
 const screenWidth = Dimensions.get('window').width;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const debatesConfig = [
   {
     id: 1,
@@ -304,7 +315,7 @@ const styles = StyleSheet.create({
   },
   back: {
     color: '#D36B6B',
-    fontWeight:"600",
-    justifyContent:"flex-end",
+    fontWeight: '600',
+    justifyContent: 'flex-end',
   },
 });

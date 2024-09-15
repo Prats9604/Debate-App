@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
@@ -10,11 +13,96 @@ import {
   ScrollView,
   Modal,
   TouchableOpacity,
+  TextInput,
+  Pressable,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// socket
+import {io, Socket} from 'socket.io-client';
+import {DefaultEventsMap} from '@socket.io/component-emitter';
+const endpoint = 'https://69da-14-139-109-130.ngrok-free.app/';
+var socket: Socket<DefaultEventsMap, DefaultEventsMap>, selectedchatcompare;
 
 export default function profile() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [message, setMessage] = useState('');
+  const [chats, setChats] = useState([]);
+  const [userId, setUserId] = useState('');
+
+  // socket connection
+  const [socketconnect, setSocketConnect] = useState(false);
+
+  useEffect(() => {
+    socket = io(endpoint);
+    socket.emit('setup', currentuser);
+    // socket.emit('joinroom', '66d609ac3998aa0b518fb513');
+    socket.on('connection', () => {
+      setSocketConnect(true);
+    });
+  }, []);
+
+  const currentuser = '66c87f33a9cc31193559e2be';
+
+  const recieveMessage = async () => {
+    try {
+      try {
+        const value: any = await AsyncStorage.getItem('userId');
+        if (value !== null) {
+          // console.log('Retrieved data:', value);
+        }
+
+        setUserId(value);
+      } catch (error) {
+        // console.error('Error retrieving data', error);
+      }
+      const response = await axios.get(
+        'https://69da-14-139-109-130.ngrok-free.app/api/chats/debate/66d609ac3998aa0b518fb513',
+      );
+      // console.log(response.data);
+      setChats(response.data);
+
+      socket.emit('joinroom', '66d609ac3998aa0b518fb513');
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    // const intervalId = setInterval(() => {
+    //   recieveMessage();
+    // }, 3000);
+    recieveMessage();
+    // return () => clearInterval(intervalId);
+  }, []);
+
+  // for socket
+
+  const sendMessage = async () => {
+    try {
+      const response = await axios.post(
+        'https://69da-14-139-109-130.ngrok-free.app/api/chats',
+        {
+          senderId: userId,
+          message: message,
+          debateId: '66d609ac3998aa0b518fb513',
+        },
+      );
+
+      console.log(response.data);
+      recieveMessage();
+      setMessage('');
+    } catch (error: any) {
+      console.log(error.message);
+    }
+    try {
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -36,7 +124,24 @@ export default function profile() {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.rooms}>
-        <View style={styles.message1}>
+        {chats.map((chat: any) => {
+          return (
+            <>
+              {chat.senderId === userId ? (
+                <View style={styles.message1}>
+                  <Text style={styles.name1}>{chat.senderId}</Text>
+                  <Text style={styles.text1}>{chat.message}</Text>
+                </View>
+              ) : (
+                <View style={styles.message2}>
+                  <Text style={styles.name2}>{chat.senderId}</Text>
+                  <Text style={styles.text2}>{chat.message}</Text>
+                </View>
+              )}
+            </>
+          );
+        })}
+        {/* <View style={styles.message1}>
           <Text style={styles.name1}>Aarav S</Text>
           <Text style={styles.text1}>
             mandated to perform national public service andated to perform
@@ -46,7 +151,8 @@ export default function profile() {
         <View style={styles.message2}>
           <Text style={styles.name2}>Aarav S</Text>
           <Text style={styles.text2}>
-            mandated to perform national public service.
+            mandated to perform national public service. Conclusion: Every
+            citizen should be mandated to perform national public service.
           </Text>
         </View>
         <View style={styles.message1}>
@@ -63,15 +169,37 @@ export default function profile() {
             citizen should be mandated to perform national public service.
           </Text>
         </View>
+        <View style={styles.message1}>
+          <Text style={styles.name1}>Aarav S</Text>
+          <Text style={styles.text1}>
+            mandated to perform national public service andated to perform
+            national public.
+          </Text>
+        </View>
+        <View style={styles.message2}>
+          <Text style={styles.name2}>Aarav S</Text>
+          <Text style={styles.text2}>
+            mandated to perform national public service. Conclusion: Every
+            citizen should be mandated to perform national public service.
+          </Text>
+        </View> */}
       </ScrollView>
       {/* <Text style={styles.input}>Message</Text> */}
       <View style={styles.input2}>
-        <Text style={styles.inputText}>Message</Text>
-        <Image
-          source={require('../../assets/images/send.png')}
-          style={{width: 34, height: 28}}
-          alt="send"
+        <TextInput
+          style={styles.inputText}
+          placeholder="Message"
+          placeholderTextColor="#747474"
+          value={message}
+          onChangeText={text => setMessage(text)} // Corrected onChangeText handler
         />
+        <Pressable onPress={sendMessage}>
+          <Image
+            source={require('../../assets/images/send.png')}
+            style={{width: 34, height: 28}}
+            alt="send"
+          />
+        </Pressable>
       </View>
 
       <Modal
@@ -199,7 +327,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     position: 'absolute',
     paddingVertical: 10,
-    paddingHorizontal:20,
+    paddingHorizontal: 20,
     backgroundColor: '#E3E3E3',
     bottom: 4,
     width: '92%',
@@ -208,13 +336,13 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     borderRadius: 20,
     justifyContent: 'space-between',
-    alignItems:'center',
+    alignItems: 'center',
     elevation: 5,
   },
   inputText: {
     color: '#747474',
-    fontSize:14,
-    fontWeight:'500',
+    fontSize: 14,
+    fontWeight: '500',
   },
   modalOverlay: {
     flex: 1,

@@ -54,12 +54,7 @@ const myTab = () => {
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="myTab">
-        <Stack.Screen
-          name="myTab"
-          component={myTab}
-          options={{headerShown: false}}
-        />
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
           component={Login}
@@ -73,6 +68,11 @@ export default function Navigation() {
           options={{
             headerShown: false,
           }}
+        />
+        <Stack.Screen
+          name="myTab"
+          component={myTab}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Home"

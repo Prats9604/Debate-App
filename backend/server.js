@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const http = require("http");
 const { Server } = require("socket.io");
-const cors = require("cors"); // Import the cors package
-const Chat = require("./Models/chatSchema.js"); // Import the Chat model
+const cors = require("cors");
+const Chat = require("./Models/chatSchema.js");
 require("dotenv").config();
 
 const AuthUser = require("./Routes/Authentication.js");
@@ -14,14 +14,12 @@ const notificationRoutes = require("./Routes/notification.js");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "*", // Allow all origins, change as needed
-    methods: ["GET", "POST"],
-  },
-});
 
 const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(cors()); // Enable CORS for all routes
+app.use(express.json());
 
 // Auth end points
 app.use("/api", AuthUser);
@@ -30,19 +28,58 @@ app.use("/api", debateTops);
 app.use("/api", chatRoutes);
 app.use("/api", notificationRoutes);
 
-app.use(express.json());
-
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log("MongoDB connection error:", err));
 
-// Simple get request
+// Simple GET request
 app.get("/", (req, res) => {
   res.send("Welcome to the debate app");
 });
 
-server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+// Start server
+const ser = server.listen(PORT, (err) => {
+  if (err) {
+    console.error("Server failed to start:", err);
+  } else {
+    console.log(`Server started on port ${PORT}`);
+  }
+});
+
+// Socket.IO
+const io = new Server(ser, {
+  cors: {
+    origin: "*", // Allow all origins
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("A user connected:", socket.id);
+
+  socket.on("setup", (userId) => {
+    socket.join(userId);
+    socket.emit("connected", userId);
+    console.log("User connected to socket:", userId);
+  });
+
+  socket.on("joinroom", (room) => {
+    socket.join(room);
+    console.log("User joined room:", room);
+  });
+
+  // Listening for messages
+  socket.on("message", (data) => {
+    console.log("Message received:", data);
+    io.emit("message", data); // Broadcast to all clients
+  });
+
+  // Handle disconnection
+  socket.on("disconnect", () => {
+    console.log("A user disconnected:", socket.id);
+  });
+});

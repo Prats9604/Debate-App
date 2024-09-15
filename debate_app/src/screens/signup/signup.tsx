@@ -58,7 +58,7 @@ function Signup(): React.JSX.Element {
 
     try {
       const response = await axios.post(
-        'https://debate-backend-sara2829s-projects.vercel.app/api/register',
+        'https://69da-14-139-109-130.ngrok-free.app/api/register',
         {
           name: 'meee',
           email: email,

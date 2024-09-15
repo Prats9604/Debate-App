@@ -17,6 +17,7 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // C:\Users\HP\AppData\Local\Android\Sdk\ndk\26.1.10909125
 
@@ -51,9 +52,18 @@ function Login(): React.JSX.Element {
     console.log('Email:', email);
     console.log('Password', password);
 
+    // navigation.navigate('myTab');
+
+    // try {
+    //   await AsyncStorage.setItem('userId', '66d6050d3998aa0b518fb4de');
+    //   console.log('Data stored successfully');
+    // } catch (error) {
+    //   console.error('Error storing data', error);
+    // }
+
     try {
       const response = await axios.post(
-        'https://debate-backend-sara2829s-projects.vercel.app/api/login',
+        'https://69da-14-139-109-130.ngrok-free.app/api/login',
         {
           email: email,
           password: password,
@@ -61,6 +71,13 @@ function Login(): React.JSX.Element {
       );
       console.log('Login successful:', response.data);
       navigation.navigate('myTab');
+
+      try {
+        await AsyncStorage.setItem('userId', response.data.userId);
+        console.log('Data stored successfully');
+      } catch (error) {
+        console.error('Error storing data', error);
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {

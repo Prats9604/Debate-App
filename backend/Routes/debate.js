@@ -52,6 +52,24 @@ app.get("/debate/:id", async (req, res) => {
   }
 });
 
+// GET debate requests by userID
+app.get("/debate/user/:id", async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const debate = await DebateTopic.find({
+      $or: [
+        { "redTeam.TeamLeaderId": userId },
+        { "redTeam.TeamMembers": userId },
+        { "blueTeam.TeamLeaderId": userId },
+        { "blueTeam.TeamMembers": userId },
+      ],
+    });
+
+    res.json(debate);
+  } catch (err) {}
+});
+
 // Get debate status by ID
 // app.get("/debate/:id/status", async (req, res) => {
 //   const debateTopicId = req.params.id;

@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
@@ -13,6 +15,8 @@ import {
   Modal,
 } from 'react-native';
 import React, {useState, useRef, useEffect} from 'react';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -160,6 +164,9 @@ export default function Rooms() {
   const [selectedDebate, setSelectedDebate] = useState<number | null>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modal2Visible, setModal2Visible] = useState<boolean>(false);
+
+  // debate state
+  const [debates, setDebates] = useState<any[]>([]);
   const handleTopicPress = (event: any, debateId: number) => {
     setModalVisible(true);
   };
@@ -179,11 +186,44 @@ export default function Rooms() {
     setModal2Visible(true);
   };
 
+  // all debate render
+  const fetchdeabtes = async () => {
+    try {
+      const response = await axios.get(
+        'https://69da-14-139-109-130.ngrok-free.app/api/debate/user/66ade28f04772fa8b56477ac',
+      );
+      console.log('debate all ==========', response.data);
+      setDebates(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchdeabtes();
+  }, []);
+  // console.log('debate all--------- ');
+  // console.log(debates);
+
+  const retrieveData = async (key: any) => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      if (value !== null) {
+        console.log('Retrieved data:', value);
+      }
+    } catch (error) {
+      console.error('Error retrieving data', error);
+    }
+  };
+
+  const userId: any = retrieveData('userId');
+  console.log('userId==', userId);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerText1}>Hey Pratiksha!</Text>
+          <Text style={styles.headerText1}>Hey !</Text>
           <Text style={styles.headerText2}>WEL-COME to XYZ</Text>
         </View>
         <View style={styles.profileImage}>
@@ -328,8 +368,7 @@ export default function Rooms() {
           <View style={styles.modal}>
             <TouchableOpacity
               style={styles.crossButton}
-              onPress={() => setModal2Visible(false)}
-            >
+              onPress={() => setModal2Visible(false)}>
               <Text style={styles.crossText}>X</Text>
             </TouchableOpacity>
 
@@ -593,7 +632,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: '#747474',
-    marginTop:10,
+    marginTop: 10,
   },
   buttonText: {
     color: '#fff',
