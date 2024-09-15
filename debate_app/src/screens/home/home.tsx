@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
@@ -191,83 +194,6 @@ export default function Rooms() {
 
   const navigation = useNavigation();
 
-  // const rendercomponent = ({item: debate}: any) => {
-  //   console.log(debate);
-  //   return (
-  //     <>
-  //       <TouchableOpacity
-  //         key={debate.id}
-  //         style={styles.debates}
-  //         onPress={() => handleDebateTouch(debate.id)}>
-  //         <View style={styles.top}>
-  //           <Text style={styles.debateTopic}>{debate.topic}</Text>
-  //           <View style={styles.notification}></View>
-  //         </View>
-
-  //         {debate.status === 'Completed' && (
-  //           <TouchableOpacity onPress={() => toggleTextExpansion(debate.id)}>
-  //             <Text
-  //               style={styles.conclusion}
-  //               numberOfLines={expandedDebates[debate.id] ? undefined : 1}
-  //               ellipsizeMode="tail">
-  //               {debate.conclusion}
-  //             </Text>
-  //           </TouchableOpacity>
-  //         )}
-
-  //         <View style={styles.bottom}>
-  //           <View style={styles.duration}>
-  //             <Text style={styles.number}>{debate.days}</Text>
-  //             <Text style={styles.days}>Days</Text>
-  //             <Text style={styles.slash}>/</Text>
-  //             <Text style={styles.result}>{debate.status}</Text>
-  //           </View>
-  //           <View style={styles.right}>
-  //             {debate.companionsRight.map((img: any, index: any) => (
-  //               <Image
-  //                 key={index}
-  //                 source={img}
-  //                 style={{width: 26, height: 26}}
-  //                 alt="profile"
-  //               />
-  //             ))}
-  //             <Text style={styles.Count}>{debate.countRight}</Text>
-  //           </View>
-  //         </View>
-  //         {touchedDebate === debate.id && (
-  //           <View style={styles.chatbox}>
-  //             <ScrollView style={styles.chats}>
-  //               <Text>Chats to be rendered from this particular debate</Text>
-  //             </ScrollView>
-
-  //             <View style={styles.details}>
-  //               <View style={styles.likes}>
-  //                 <Text style={styles.likesValue}>Likes: </Text>
-  //                 <Text style={styles.likesValue}>1.3k</Text>
-  //               </View>
-  //               {debate.status === 'Ongoing' && (
-  //                 <TouchableOpacity
-  //                   style={styles.customButton2}
-  //                   onPress={event => handleJoinDebate()}>
-  //                   <Text style={styles.buttonText}>Join this Debate</Text>
-  //                 </TouchableOpacity>
-  //               )}
-  //             </View>
-  //           </View>
-  //         )}
-  //       </TouchableOpacity>
-  //       {/* <View>
-  //         <Text>Hello</Text>
-  //         <Text>Hello</Text>
-  //         <Text>Hello</Text>
-  //         <Text>Hello</Text>
-  //         <Text>Hello</Text>
-  //         <Text>Hello</Text>
-  //       </View> */}
-  //     </>
-  //   );
-  // };
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -439,8 +365,6 @@ export default function Rooms() {
               ))}
           </View>
         </ScrollView>
-
-        {/* <FlatList renderItem={rendercomponent} data={debatesConfig} /> */}
       </View>
 
       <Modal
@@ -655,7 +579,6 @@ const styles = StyleSheet.create({
     gap: 20,
     width: '100%',
     // paddingHorizontal: 24
-
     backgroundColor: '#fff',
     flex: 1,
     borderTopLeftRadius: 40,

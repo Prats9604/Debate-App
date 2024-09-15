@@ -43,39 +43,41 @@ function Login(): React.JSX.Element {
   const loginHandler = async () => {
     console.log('Attempting to log in');
 
-    if (email === '' || password === '') {
-      console.log('Please enter all the fields');
-      return;
-    }
+    navigation.navigate('myTab');
 
-    console.log('Email:', email);
-    console.log('Password', password);
+    // if (email === '' || password === '') {
+    //   console.log('Please enter all the fields');
+    //   return;
+    // }
 
-    try {
-      const response = await axios.post(
-        'https://debate-backend-sara2829s-projects.vercel.app/api/login',
-        {
-          email: email,
-          password: password,
-        },
-      );
-      console.log('Login successful:', response.data);
-      navigation.navigate('myTab');
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          console.error('Error response data:', error.response.data);
-          console.error('Error response status:', error.response.status);
-          console.error('Error response headers:', error.response.headers);
-        } else if (error.request) {
-          console.error('Error request data:', error.request);
-        } else {
-          console.error('Error message:', error.message);
-        }
-      } else {
-        console.error('Unexpected error:', error);
-      }
-    }
+    // console.log('Email:', email);
+    // console.log('Password', password);
+
+    // try {
+    //   const response = await axios.post(
+    //     'https://debate-backend-sara2829s-projects.vercel.app/api/login',
+    //     {
+    //       email: email,
+    //       password: password,
+    //     },
+    //   );
+    //   console.log('Login successful:', response.data);
+    //   navigation.navigate('myTab');
+    // } catch (error) {
+    //   if (axios.isAxiosError(error)) {
+    //     if (error.response) {
+    //       console.error('Error response data:', error.response.data);
+    //       console.error('Error response status:', error.response.status);
+    //       console.error('Error response headers:', error.response.headers);
+    //     } else if (error.request) {
+    //       console.error('Error request data:', error.request);
+    //     } else {
+    //       console.error('Error message:', error.message);
+    //     }
+    //   } else {
+    //     console.error('Unexpected error:', error);
+    //   }
+    // }
   };
 
   return (

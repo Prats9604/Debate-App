@@ -56,7 +56,7 @@ const myTab = () => {
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="myTab">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="myTab"
           component={myTab}
