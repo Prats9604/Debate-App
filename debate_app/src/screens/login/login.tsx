@@ -17,6 +17,7 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // C:\Users\HP\AppData\Local\Android\Sdk\ndk\26.1.10909125
 
@@ -40,44 +41,36 @@ function Login(): React.JSX.Element {
     navigation.navigate('Signup');
   };
 
+  const setdata = async (data: any) => {
+    try {
+      await AsyncStorage.setItem('userId', data);
+      console.log('userId saved');
+      navigation.navigate('myTab');
+    } catch (error) {
+      console.log('Failed to save email:', error);
+    }
+  };
+
   const loginHandler = async () => {
     console.log('Attempting to log in');
+    if (email === '' || password === '') {
+      console.log('Please enter all the fields');
+      return;
+    }
+    console.log('Email:', email);
+    console.log('Password', password);
 
-    navigation.navigate('myTab');
-
-    // if (email === '' || password === '') {
-    //   console.log('Please enter all the fields');
-    //   return;
-    // }
-
-    // console.log('Email:', email);
-    // console.log('Password', password);
-
-    // try {
-    //   const response = await axios.post(
-    //     'https://debate-backend-sara2829s-projects.vercel.app/api/login',
-    //     {
-    //       email: email,
-    //       password: password,
-    //     },
-    //   );
-    //   console.log('Login successful:', response.data);
-    //   navigation.navigate('myTab');
-    // } catch (error) {
-    //   if (axios.isAxiosError(error)) {
-    //     if (error.response) {
-    //       console.error('Error response data:', error.response.data);
-    //       console.error('Error response status:', error.response.status);
-    //       console.error('Error response headers:', error.response.headers);
-    //     } else if (error.request) {
-    //       console.error('Error request data:', error.request);
-    //     } else {
-    //       console.error('Error message:', error.message);
-    //     }
-    //   } else {
-    //     console.error('Unexpected error:', error);
-    //   }
-    // }
+    try {
+      const response = await axios.post(
+        'https://debate-backend-sara2829s-projects.vercel.app/api/login',
+        {email, password},
+      );
+      console.log('Login successful =========== ', response.data);
+      console.log('userId:', response.data.userId);
+      setdata(response.data.userId);
+    } catch (error: any) {
+      console.log('Login failed: ', error.response.data.message);
+    }
   };
 
   return (

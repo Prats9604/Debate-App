@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
@@ -11,9 +13,12 @@ import {
   Dimensions,
   ScrollView,
   Pressable,
+  ActivityIndicator,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const screenWidth = Dimensions.get('window').width;
 const debatesConfig = [
@@ -264,6 +269,8 @@ export default function Rooms() {
   const [expandedDebates, setExpandedDebates] = useState<Set<number>>(
     new Set(),
   );
+  const [userDebates, setUserDebates] = useState<any>(null);
+  const [userId, setUserId] = useState('');
 
   const toggleTextExpansion = (debateId: number) => {
     setExpandedDebates(prev => {
@@ -278,6 +285,38 @@ export default function Rooms() {
   };
 
   const navigation = useNavigation();
+
+  const retriveData = async () => {
+    try {
+      const value: any = await AsyncStorage.getItem('userId');
+      setUserId(value);
+      console.log('Value:', value);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  const renderDebatedata = async () => {
+    try {
+      const response = await axios.get(
+        'https://debate-backend-sara2829s-projects.vercel.app/api/debate/user/66d6050d3998aa0b518fb4de',
+      );
+      console.log('renderDebatedata ===', response.data);
+      setUserDebates(response.data);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    retriveData();
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      renderDebatedata();
+    }
+  }, [userId]);
 
   return (
     <View style={styles.container}>
@@ -321,75 +360,95 @@ export default function Rooms() {
             height: '100%',
           }}>
           <View style={styles.debatewrap}>
-            {debatesConfig
-              .filter(debate => debate.status === filter)
-              .map(debate => (
-                <Pressable
-                  onPress={() => {
-                    navigation.navigate('OwnChats');
-                  }}>
-                  <View key={debate.id} style={styles.debates}>
-                    <View style={styles.top}>
-                      <Text style={styles.debateTopic}>{debate.topic}</Text>
-                      <View
-                        style={[
-                          styles.notification,
-                          {backgroundColor: debate.notification},
-                        ]}></View>
-                    </View>
-
-                    {debate.status === 'Completed' && (
-                      <TouchableOpacity
-                        onPress={() => toggleTextExpansion(debate.id)}>
-                        <Text
-                          style={styles.conclusion}
-                          numberOfLines={
-                            expandedDebates.has(debate.id) ? undefined : 1
-                          }
-                          ellipsizeMode="tail">
-                          {debate.conclusion}
+            {userDebates ? (
+              userDebates
+                // .filter((debate: any) => {
+                //   return filter === '' || debate.status === filter;
+                // })
+                .map((debate: any) => (
+                  <Pressable
+                    onPress={() => {
+                      navigation.navigate('OwnChats');
+                    }}>
+                    <View key={debate._id} style={styles.debates}>
+                      <View style={styles.top}>
+                        <Text style={styles.debateTopic}>
+                          {debate.debateName}
                         </Text>
-                      </TouchableOpacity>
-                    )}
+                        <View
+                          style={[
+                            styles.notification,
+                            {backgroundColor: debate.notification},
+                          ]}></View>
+                      </View>
 
-                    <View style={styles.bottom}>
-                      <View style={styles.left}>
-                        {debate.companionsLeft.map((img, index) => (
+                      {debate.status === 'Completed' && (
+                        <TouchableOpacity
+                          onPress={() => toggleTextExpansion(debate.id)}>
+                          <Text
+                            style={styles.conclusion}
+                            numberOfLines={
+                              expandedDebates.has(debate._id) ? undefined : 1
+                            }
+                            ellipsizeMode="tail">
+                            {debate.conclusion}
+                          </Text>
+                        </TouchableOpacity>
+                      )}
+
+                      <View style={styles.bottom}>
+                        <View style={styles.left}>
+                          {/* {debate.companionsLeft.map((img: any, index: any) => (
                           <Image
                             key={index}
                             source={img}
                             style={{width: 26, height: 26}}
                             alt="profile"
                           />
-                        ))}
-                        <Text style={styles.Count}>{debate.countLeft}</Text>
-                      </View>
-                      <View style={styles.duration}>
-                        <Text style={styles.number}>{debate.days}</Text>
-                        <Text style={styles.days}>Days</Text>
+                        ))} */}
+                          <Image
+                            source={require('../../assets/images/blue.png')}
+                            style={{width: 24, height: 24}}
+                            alt="profiles"
+                          />
+                          {/* <Text style={styles.Count}>8</Text> */}
+                        </View>
+                        <View style={styles.duration}>
+                          <Text style={styles.number}>10</Text>
+                          <Text style={styles.days}>Days</Text>
 
-                        {debate.status === 'Completed' && (
-                          <Text style={styles.slash}>/</Text>
-                        )}
-                        {debate.status === 'Completed' && (
-                          <Text style={styles.result}>{debate.result}</Text>
-                        )}
-                      </View>
-                      <View style={styles.right}>
-                        {debate.companionsRight.map((img, index) => (
+                          {debate.status === 'Completed' && (
+                            <Text style={styles.slash}>/</Text>
+                          )}
+                          {debate.status === 'Completed' && (
+                            <Text style={styles.result}>{debate.result}</Text>
+                          )}
+                        </View>
+                        <View style={styles.right}>
+                          {/* {debate.companionsRight.map((img, index) => (
                           <Image
                             key={index}
                             source={img}
                             style={{width: 26, height: 26}}
                             alt="profile"
                           />
-                        ))}
-                        <Text style={styles.Count}>{debate.countRight}</Text>
+                        ))} */}
+                          <Image
+                            source={require('../../assets/images/red.png')}
+                            style={{width: 24, height: 24}}
+                            alt="profiles"
+                          />
+                          {/* <Text style={styles.Count}>10</Text> */}
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </Pressable>
-              ))}
+                  </Pressable>
+                ))
+            ) : (
+              <>
+                <ActivityIndicator size="large" color="#D36B6B" />
+              </>
+            )}
           </View>
         </ScrollView>
       </View>

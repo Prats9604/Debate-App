@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/self-closing-comp */
@@ -15,10 +17,14 @@ import {
   TouchableWithoutFeedback,
   Modal,
   FlatList,
+  ActivityIndicator,
   Pressable,
+  TextInput,
 } from 'react-native';
 import React, {useState, useRef, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -168,6 +174,11 @@ export default function Rooms() {
   const [modal2Visible, setModal2Visible] = useState<boolean>(false);
   const [modal3Visible, setModal3Visible] = useState<boolean>(false);
   const [touchedDebate, setTouchedDebate] = useState<number | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [userData, setuserData] = useState<any>(null);
+  const [userDebates, setUserDebates] = useState<any>(null);
+  const [debatetopic, setDebateTopic] = useState<string>('');
+
   const handleTopicPress = (event: any, debateId: number) => {
     setModalVisible(true);
   };
@@ -194,11 +205,85 @@ export default function Rooms() {
 
   const navigation = useNavigation();
 
+  const retriveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('userId');
+      setUserId(value);
+      console.log('Value:', value);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  const renderUserdata = async () => {
+    try {
+      const response = await axios.get(
+        'https://debate-backend-sara2829s-projects.vercel.app/api/users/' +
+          userId,
+      );
+      console.log('renderDebatedata ==', response.data);
+      setuserData(response.data);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  const renderDebatedata = async () => {
+    try {
+      const response = await axios.get(
+        'https://debate-backend-sara2829s-projects.vercel.app/api/getalldebate',
+      );
+      console.log('renderDebatedata === ', response.data);
+      setUserDebates(response.data);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    retriveData();
+  }, []);
+
+  useEffect(() => {
+    if (userId || userDebates || userData) {
+      renderUserdata();
+      renderDebatedata();
+    }
+  }, [userId || userDebates || userData]);
+
+  const addDebate = async () => {
+    console.log('Debate Topic:', debatetopic);
+    console.log('User Id:', userId);
+
+    if (debatetopic === '') {
+      console.log('Please enter a debate topic');
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        'https://debate-backend-sara2829s-projects.vercel.app/api/debate',
+        {
+          debateName: debatetopic,
+          status: 'Upcoming',
+          description: 'new idea Upcoming Upcoming Upcoming',
+          userId: userId,
+        },
+      );
+      console.log('Add Debate:', response.data);
+      setDebateTopic('');
+      setModal2Visible(false);
+      renderDebatedata();
+    } catch (error) {
+      console.log('Axios error in debate adding:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerText1}>Hey Pratiksha!</Text>
+          <Text style={styles.headerText1}>Hey {userData?.name} !</Text>
           <Text style={styles.headerText2}>WEL-COME to XYZ</Text>
         </View>
         <Pressable
@@ -291,78 +376,98 @@ export default function Rooms() {
             height: '100%',
           }}>
           <View style={styles.debatewrap}>
-            {debatesConfig
-              .filter(debate => filter === '' || debate.status === filter)
-              .map(debate => (
-                <TouchableOpacity
-                  key={debate.id}
-                  style={styles.debates}
-                  onPress={() => handleDebateTouch(debate.id)}>
-                  <View style={styles.top}>
-                    <Text style={styles.debateTopic}>{debate.topic}</Text>
-                    <View style={styles.notification}></View>
-                  </View>
-
-                  {debate.status === 'Completed' && (
-                    <TouchableOpacity
-                      onPress={() => toggleTextExpansion(debate.id)}>
-                      <Text
-                        style={styles.conclusion}
-                        numberOfLines={
-                          expandedDebates[debate.id] ? undefined : 1
-                        }
-                        ellipsizeMode="tail">
-                        {debate.conclusion}
+            {userDebates ? (
+              userDebates
+                .filter((debate: any) => {
+                  return filter === '' || debate.status === filter;
+                })
+                .map((debate: any) => (
+                  <TouchableOpacity
+                    key={debate?._id}
+                    style={styles.debates}
+                    onPress={() => handleDebateTouch(debate?._id)}>
+                    <View style={styles.top}>
+                      <Text style={styles.debateTopic}>
+                        {debate.debateName}
                       </Text>
-                    </TouchableOpacity>
-                  )}
-
-                  <View style={styles.bottom}>
-                    <View style={styles.duration}>
-                      <Text style={styles.number}>{debate.days}</Text>
-                      <Text style={styles.days}>Days</Text>
-                      <Text style={styles.slash}>/</Text>
-                      <Text style={styles.result}>{debate.status}</Text>
+                      <View style={styles.notification}></View>
                     </View>
-                    <View style={styles.right}>
-                      {debate.companionsRight.map((img, index) => (
+
+                    {debate.status === 'Completed' && (
+                      <TouchableOpacity
+                        onPress={() => toggleTextExpansion(debate?._id)}>
+                        <Text
+                          style={styles.conclusion}
+                          numberOfLines={
+                            expandedDebates[debate?._id] ? undefined : 1
+                          }
+                          ellipsizeMode="tail">
+                          {debate.conclusion}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+
+                    <View style={styles.bottom}>
+                      <View style={styles.duration}>
+                        <Text style={styles.number}>8</Text>
+                        <Text style={styles.days}>Days</Text>
+                        <Text style={styles.slash}>/</Text>
+                        <Text style={styles.result}>{debate.status}</Text>
+                      </View>
+                      <View style={styles.right}>
+                        {/* {debate.companionsRight.map((img, index) => (
                         <Image
                           key={index}
                           source={img}
                           style={{width: 26, height: 26}}
                           alt="profile"
                         />
-                      ))}
-                      <Text style={styles.Count}>{debate.countRight}</Text>
-                    </View>
-                  </View>
-                  {touchedDebate === debate.id && (
-                    <View style={styles.chatbox}>
-                      <ScrollView style={styles.chats}>
-                        <Text>
-                          Chats to be rendered from this particular debate
-                        </Text>
-                      </ScrollView>
-
-                      <View style={styles.details}>
-                        <View style={styles.likes}>
-                          <Text style={styles.likesValue}>Likes: </Text>
-                          <Text style={styles.likesValue}>1.3k</Text>
-                        </View>
-                        {debate.status === 'Ongoing' && (
-                          <TouchableOpacity
-                            style={styles.customButton2}
-                            onPress={event => handleJoinDebate()}>
-                            <Text style={styles.buttonText}>
-                              Join this Debate
-                            </Text>
-                          </TouchableOpacity>
-                        )}
+                      ))} */}
+                        <Image
+                          key={1}
+                          source={require('../../assets/images/red.png')}
+                          style={{width: 26, height: 26}}
+                          alt="profile"
+                        />
+                        <Image
+                          key={1}
+                          source={require('../../assets/images/blue.png')}
+                          style={{width: 26, height: 26}}
+                          alt="profile"
+                        />
+                        {/* <Text style={styles.Count}>1</Text> */}
                       </View>
                     </View>
-                  )}
-                </TouchableOpacity>
-              ))}
+                    {touchedDebate === debate._id && (
+                      <View style={styles.chatbox}>
+                        <ScrollView style={styles.chats}>
+                          <Text>
+                            Chats to be rendered from this particular debate
+                          </Text>
+                        </ScrollView>
+
+                        <View style={styles.details}>
+                          <View style={styles.likes}>
+                            <Text style={styles.likesValue}>Likes: </Text>
+                            <Text style={styles.likesValue}>1.3k</Text>
+                          </View>
+                          {debate.status === 'Ongoing' && (
+                            <TouchableOpacity
+                              style={styles.customButton2}
+                              onPress={event => handleJoinDebate()}>
+                              <Text style={styles.buttonText}>
+                                Join this Debate
+                              </Text>
+                            </TouchableOpacity>
+                          )}
+                        </View>
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                ))
+            ) : (
+              <ActivityIndicator size="large" color="#D36B6B" />
+            )}
           </View>
         </ScrollView>
       </View>
@@ -417,11 +522,13 @@ export default function Rooms() {
               onPress={() => setModal2Visible(false)}>
               <Text style={styles.crossText}>X</Text>
             </TouchableOpacity>
-
-            <View style={styles.debateBox}></View>
-            <TouchableOpacity
-              style={styles.customButton}
-              onPress={() => console.log('Request to Debate')}>
+            <TextInput
+              style={styles.debateBox}
+              value={debatetopic}
+              onChangeText={setDebateTopic}
+              placeholder="Enter Debate Topic"
+            />
+            <TouchableOpacity style={styles.customButton} onPress={addDebate}>
               <Text style={styles.buttonText}>Add this Debate topic</Text>
             </TouchableOpacity>
           </View>
