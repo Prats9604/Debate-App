@@ -1,7 +1,9 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
+// /* eslint-disable prettier/prettier */
+// /* eslint-disable react-native/no-inline-styles */
+// /* eslint-disable prettier/prettier */
+// /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -18,6 +20,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 // C:\Users\HP\AppData\Local\Android\Sdk\ndk\26.1.10909125
 
@@ -116,7 +119,6 @@ function Login(): React.JSX.Element {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -28,140 +28,140 @@ import axios from 'axios';
 
 const screenWidth = Dimensions.get('window').width;
 
-const topicsConfig = [
-  {
-    id: 1,
-    topic: 'All people should have Universal Basic Income.',
-    owner: 'Mr. Fransisco',
-    profile: [require('../../assets/images/red.png')],
-  },
-  {
-    id: 2,
-    topic: 'Abortion should be banned.',
-    owner: 'Mr. Fransisco',
-    profile: [require('../../assets/images/blue.png')],
-  },
-  {
-    id: 3,
-    topic: 'Countries should be isolationist.',
-    owner: 'Mr. Fransisco',
-    profile: [require('../../assets/images/red.png')],
-  },
-  {
-    id: 4,
-    topic: 'Bottled water should be banned.',
-    owner: 'Mr. Fransisco',
-    profile: [require('../../assets/images/blue.png')],
-  },
-  {
-    id: 5,
-    topic: 'All people should have Universal Basic Income.',
-    owner: 'Mr. Fransisco',
-    profile: [require('../../assets/images/red.png')],
-  },
-  {
-    id: 6,
-    topic: 'All people should have Universal Basic Income.',
-    owner: 'Mr. Fransisco',
-    profile: [require('../../assets/images/blue.png')],
-  },
-  {
-    id: 7,
-    topic: 'Bottled water should be banned.',
-    owner: 'Mr. Fransisco',
-    profile: [require('../../assets/images/red.png')],
-  },
-];
+// const topicsConfig = [
+//   {
+//     id: 1,
+//     topic: 'All people should have Universal Basic Income.',
+//     owner: 'Mr. Fransisco',
+//     profile: [require('../../assets/images/red.png')],
+//   },
+//   {
+//     id: 2,
+//     topic: 'Abortion should be banned.',
+//     owner: 'Mr. Fransisco',
+//     profile: [require('../../assets/images/blue.png')],
+//   },
+//   {
+//     id: 3,
+//     topic: 'Countries should be isolationist.',
+//     owner: 'Mr. Fransisco',
+//     profile: [require('../../assets/images/red.png')],
+//   },
+//   {
+//     id: 4,
+//     topic: 'Bottled water should be banned.',
+//     owner: 'Mr. Fransisco',
+//     profile: [require('../../assets/images/blue.png')],
+//   },
+//   {
+//     id: 5,
+//     topic: 'All people should have Universal Basic Income.',
+//     owner: 'Mr. Fransisco',
+//     profile: [require('../../assets/images/red.png')],
+//   },
+//   {
+//     id: 6,
+//     topic: 'All people should have Universal Basic Income.',
+//     owner: 'Mr. Fransisco',
+//     profile: [require('../../assets/images/blue.png')],
+//   },
+//   {
+//     id: 7,
+//     topic: 'Bottled water should be banned.',
+//     owner: 'Mr. Fransisco',
+//     profile: [require('../../assets/images/red.png')],
+//   },
+// ];
 
-const debatesConfig = [
-  {
-    id: 1,
-    status: 'Ongoing',
-    topic:
-      'Every citizen should be mandated to perform national public service.',
-    conclusion: '',
-    days: 8,
-    companionsRight: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
-  {
-    id: 2,
-    status: 'Completed',
-    topic:
-      'Every citizen should be mandated to perform national public service.',
-    conclusion:
-      'Frederick Douglass was, as we have seen, a pioneer in American education, proving that education was a major force for social change with regard to slavery.',
-    days: 8,
-    companionsRight: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
-  {
-    id: 3,
-    status: 'Ongoing',
-    topic:
-      'Every citizen should be mandated to perform national public service.',
-    conclusion: '',
-    days: 8,
-    companionsRight: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
-  {
-    id: 4,
-    status: 'Completed',
-    topic:
-      'Every citizen should be mandated to perform national public service.',
-    conclusion:
-      'Frederick Douglass was, as we have seen, a pioneer in American education, proving that education was a major force for social change with regard to slavery.',
-    days: 8,
-    companionsRight: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
-  {
-    id: 5,
-    status: 'Ongoing',
-    topic:
-      'Every citizen should be mandated to perform national public service.',
-    conclusion: '',
-    days: 8,
-    companionsRight: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
-  {
-    id: 6,
-    status: 'Completed',
-    topic:
-      'Every citizen should be mandated to perform national public service.',
-    conclusion:
-      'Frederick Douglass was, as we have seen, a pioneer in American education, proving that education was a major force for social change with regard to slavery.',
-    days: 8,
-    companionsRight: [
-      require('../../assets/images/red.png'),
-      require('../../assets/images/blue.png'),
-    ],
-    countLeft: '+1',
-    countRight: '+3',
-  },
-];
+// const debatesConfig = [
+//   {
+//     id: 1,
+//     status: 'Ongoing',
+//     topic:
+//       'Every citizen should be mandated to perform national public service.',
+//     conclusion: '',
+//     days: 8,
+//     companionsRight: [
+//       require('../../assets/images/red.png'),
+//       require('../../assets/images/blue.png'),
+//     ],
+//     countLeft: '+1',
+//     countRight: '+3',
+//   },
+//   {
+//     id: 2,
+//     status: 'Completed',
+//     topic:
+//       'Every citizen should be mandated to perform national public service.',
+//     conclusion:
+//       'Frederick Douglass was, as we have seen, a pioneer in American education, proving that education was a major force for social change with regard to slavery.',
+//     days: 8,
+//     companionsRight: [
+//       require('../../assets/images/red.png'),
+//       require('../../assets/images/blue.png'),
+//     ],
+//     countLeft: '+1',
+//     countRight: '+3',
+//   },
+//   {
+//     id: 3,
+//     status: 'Ongoing',
+//     topic:
+//       'Every citizen should be mandated to perform national public service.',
+//     conclusion: '',
+//     days: 8,
+//     companionsRight: [
+//       require('../../assets/images/red.png'),
+//       require('../../assets/images/blue.png'),
+//     ],
+//     countLeft: '+1',
+//     countRight: '+3',
+//   },
+//   {
+//     id: 4,
+//     status: 'Completed',
+//     topic:
+//       'Every citizen should be mandated to perform national public service.',
+//     conclusion:
+//       'Frederick Douglass was, as we have seen, a pioneer in American education, proving that education was a major force for social change with regard to slavery.',
+//     days: 8,
+//     companionsRight: [
+//       require('../../assets/images/red.png'),
+//       require('../../assets/images/blue.png'),
+//     ],
+//     countLeft: '+1',
+//     countRight: '+3',
+//   },
+//   {
+//     id: 5,
+//     status: 'Ongoing',
+//     topic:
+//       'Every citizen should be mandated to perform national public service.',
+//     conclusion: '',
+//     days: 8,
+//     companionsRight: [
+//       require('../../assets/images/red.png'),
+//       require('../../assets/images/blue.png'),
+//     ],
+//     countLeft: '+1',
+//     countRight: '+3',
+//   },
+//   {
+//     id: 6,
+//     status: 'Completed',
+//     topic:
+//       'Every citizen should be mandated to perform national public service.',
+//     conclusion:
+//       'Frederick Douglass was, as we have seen, a pioneer in American education, proving that education was a major force for social change with regard to slavery.',
+//     days: 8,
+//     companionsRight: [
+//       require('../../assets/images/red.png'),
+//       require('../../assets/images/blue.png'),
+//     ],
+//     countLeft: '+1',
+//     countRight: '+3',
+//   },
+// ];
 
 export default function Rooms() {
   const [filter, setFilter] = useState<string>('');
@@ -169,7 +169,6 @@ export default function Rooms() {
     [key: number]: boolean;
   }>({});
 
-  const [selectedDebate, setSelectedDebate] = useState<number | null>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modal2Visible, setModal2Visible] = useState<boolean>(false);
   const [modal3Visible, setModal3Visible] = useState<boolean>(false);
@@ -178,13 +177,23 @@ export default function Rooms() {
   const [userData, setuserData] = useState<any>(null);
   const [userDebates, setUserDebates] = useState<any>(null);
   const [debatetopic, setDebateTopic] = useState<string>('');
+  const [selectedDebateId, setSelectedDebateId] = useState<number | null>(null);
+  const [debatedate, setDebateDate] = useState<any>(null);
+  const [debateusername, setDebateUsername] = useState<string>('');
 
-  const handleTopicPress = (event: any, debateId: number) => {
+  const handleTopicPress = (event: any, debateId: number, date: any) => {
     setModalVisible(true);
+    console.log('Event:', event);
+    console.log('Debate ID:', debateId);
+    console.log('Date:', date);
+    setSelectedDebateId(debateId);
+    setDebateDate(date);
   };
   const handleOutsidePress = () => {
     setModalVisible(false);
-    setSelectedDebate(null);
+    // setSelectedDebate(null);
+    setSelectedDebateId(null);
+    setDebateDate(null);
   };
 
   const toggleTextExpansion = (id: number) => {
@@ -279,6 +288,29 @@ export default function Rooms() {
     }
   };
 
+  const requestToJoin = async () => {
+    console.log('Request to join');
+    console.log('Debate ID:', selectedDebateId);
+    console.log('User ID:', userId);
+    console.log('Team:', 'red');
+    console.log('Message:', 'send request to join debate');
+    try {
+      const response = await axios.post(
+        'https://debate-backend-sara2829s-projects.vercel.app/api/debate/sendrequest',
+        {
+          debateId: selectedDebateId,
+          userId: userId,
+          team: 'red',
+          message: 'send request to join debate',
+        },
+      );
+      console.log('Request to join:', response.data);
+      setModalVisible(false);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -304,12 +336,14 @@ export default function Rooms() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.topicList}>
-          {topicsConfig.map(topic => (
+          {userDebates?.map((topic: any) => (
             <View
-              key={topic.id}
+              key={topic?._id}
               style={styles.topicItem}
-              onTouchEnd={event => handleTopicPress(event, topic.id)}>
-              <Text style={styles.topicText}>{topic.topic}</Text>
+              onTouchEnd={() => {
+                handleTopicPress(topic, topic?._id, topic?.createdAt);
+              }}>
+              <Text style={styles.topicText}>{topic?.debateName}</Text>
             </View>
           ))}
         </ScrollView>
@@ -317,12 +351,14 @@ export default function Rooms() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.topicList}>
-          {topicsConfig.map(topic => (
+          {userDebates?.map((topic: any) => (
             <View
-              key={topic.id}
+              key={topic?._id}
               style={styles.topicItem}
-              onTouchEnd={event => handleTopicPress(event, topic.id)}>
-              <Text style={styles.topicText}>{topic.topic}</Text>
+              onTouchEnd={() => {
+                handleTopicPress(topic, topic?._id, topic?.createdAt);
+              }}>
+              <Text style={styles.topicText}>{topic?.debateName}</Text>
             </View>
           ))}
         </ScrollView>
@@ -330,12 +366,14 @@ export default function Rooms() {
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.topicList}>
-          {topicsConfig.map(topic => (
+          {userDebates?.map((topic: any) => (
             <View
-              key={topic.id}
+              key={topic?._id}
               style={styles.topicItem}
-              onTouchEnd={event => handleTopicPress(event, topic.id)}>
-              <Text style={styles.topicText}>{topic.topic}</Text>
+              onTouchEnd={() => {
+                handleTopicPress(topic, topic?._id, topic?.createdAt);
+              }}>
+              <Text style={styles.topicText}>{topic?.debateName}</Text>
             </View>
           ))}
         </ScrollView>
@@ -486,10 +524,10 @@ export default function Rooms() {
               ]}>
               <Text style={styles.Id}>
                 <Text style={styles.modalIdText}>Debate ID:</Text>
-                <Text style={styles.modalId}>24150{selectedDebate}</Text>
+                <Text style={styles.modalId}>{selectedDebateId}</Text>
                 <Text style={styles.slash}> / </Text>
                 <Text style={styles.modalIdText}>Posted On:</Text>
-                <Text style={styles.modalId}>August 21</Text>
+                <Text style={styles.modalId}>{debatedate}</Text>
               </Text>
               <View style={styles.info}>
                 <Image
@@ -497,13 +535,11 @@ export default function Rooms() {
                   style={styles.profileImageStyle}
                   alt="profile"
                 />
-                <Text style={styles.infoText}>
-                  Mr. Fransisco{selectedDebate}
-                </Text>
+                <Text style={styles.infoText}>Mr. Fransisco</Text>
               </View>
               <TouchableOpacity
                 style={styles.customButton}
-                onPress={() => console.log('Request to Debate')}>
+                onPress={requestToJoin}>
                 <Text style={styles.buttonText}>Request to Debate</Text>
               </TouchableOpacity>
               <Text style={styles.disclaimer}>
@@ -546,7 +582,7 @@ export default function Rooms() {
               <View style={styles.modal3}>
                 <Text style={styles.Id}>
                   <Text style={styles.modalIdText}>Debate ID:</Text>
-                  <Text style={styles.modalId}>24150{selectedDebate}</Text>
+                  <Text style={styles.modalId}>24150</Text>
                   <Text style={styles.slash}> / </Text>
                   <Text style={styles.modalIdText}>Posted On:</Text>
                   <Text style={styles.modalId}>August 21</Text>
